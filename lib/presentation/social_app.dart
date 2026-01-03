@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:social_app/core/routes/routes_manger.dart';
 
 class SocialApp extends StatelessWidget {
   const SocialApp({super.key});
@@ -8,8 +9,9 @@ class SocialApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
 
+      initialRoute: RouteManger.register,
 
-
+      onGenerateRoute: RouteManger.router,
     );
   }
 }
