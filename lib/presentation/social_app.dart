@@ -15,7 +15,7 @@ class SocialApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeManger.lightTheme,
         darkTheme: ThemeManger.darkTheme,
-        themeMode: ThemeMode.light,
+        themeMode: ThemeMode.dark,
         initialRoute: RouteManger.register,
 
         onGenerateRoute: RouteManger.router,
