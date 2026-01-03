@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:social_app/core/resources/color_manger.dart';
-import 'package:social_app/core/resources/font_size_manger.dart';
-import 'package:social_app/core/resources/font_weight_manger.dart';
 import 'package:social_app/core/wigets/custom_text.dart';
 import 'package:social_app/presentation/auth/forget_password/forget_password.dart';
 import 'package:social_app/presentation/auth/login/login.dart';
@@ -28,9 +25,10 @@ class RouteManger {
             return Center(
               child: CustomText(
                 text: 'No Route Found',
-                color: ColorManger.red,
-                fontWeight: FontWeightManger.bold,
-                fontSize: FontSizeManger.s20,
+
+                style: Theme.of(context).textTheme.titleMedium,
+
+
               ),
             );
           },

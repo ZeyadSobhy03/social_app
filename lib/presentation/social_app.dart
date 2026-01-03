@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:social_app/config/theme/theme.dart';
 import 'package:social_app/core/routes/routes_manger.dart';
 
 class SocialApp extends StatelessWidget {
@@ -6,12 +8,18 @@ class SocialApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
+    return ScreenUtilInit(
+      designSize: const Size(360, 690),
+      minTextAdapt: true,
+      builder: (context, child) => MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeManger.lightTheme,
+        darkTheme: ThemeManger.darkTheme,
+        themeMode: ThemeMode.light,
+        initialRoute: RouteManger.register,
 
-      initialRoute: RouteManger.register,
-
-      onGenerateRoute: RouteManger.router,
+        onGenerateRoute: RouteManger.router,
+      ),
     );
   }
 }
