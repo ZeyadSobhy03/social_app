@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:social_app/presentation/home/home.dart';
+import 'package:social_app/presentation/home/profile/profile.dart';
 
 import '../../presentation/auth/presentation/forget_password/forget_password.dart';
 import '../../presentation/auth/presentation/login/login.dart';
@@ -12,6 +13,7 @@ class RouteManger {
   static const String login = '/login';
   static const String register = '/register';
   static const String forgetPassword = '/forgetPassword';
+  static const String profile = '/profile';
 
 
   static Route<dynamic> router(RouteSettings setting) {
@@ -19,6 +21,9 @@ class RouteManger {
 
       case home:
         return MaterialPageRoute(builder: (context) => Home());
+
+     case profile:
+        return MaterialPageRoute(builder: (context) => Profile());
       case register:
         return MaterialPageRoute(builder: (context) => Register());
 
