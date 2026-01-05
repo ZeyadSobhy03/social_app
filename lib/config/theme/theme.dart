@@ -8,6 +8,20 @@ class ThemeManger{
 
   static ThemeData lightTheme = ThemeData(
     scaffoldBackgroundColor: ColorManger.lightGrey,
+
+    appBarTheme: AppBarTheme(
+      centerTitle: true,
+      backgroundColor: ColorManger.lightGrey,
+      iconTheme: IconThemeData(
+        color: ColorManger.grey61,
+      ),
+      titleTextStyle: TextStyle(
+        color: ColorManger.grey61,
+        fontSize: FontSizeManger.s18,
+        fontWeight: FontWeightManger.bold,
+      ),
+      elevation: 0,
+    ),
     iconButtonTheme: IconButtonThemeData(
       style: IconButton.styleFrom(
         foregroundColor: ColorManger.grey61,
@@ -111,6 +125,19 @@ class ThemeManger{
     ),
     iconTheme: IconThemeData(
       color: ColorManger.grey9E,
+    ),
+    appBarTheme: AppBarTheme(
+      centerTitle: true,
+      backgroundColor:  ColorManger.black12,
+      iconTheme: IconThemeData(
+        color: ColorManger.grey9E,
+      ),
+      titleTextStyle: TextStyle(
+        color: ColorManger.grey9E,
+        fontSize: FontSizeManger.s18,
+        fontWeight: FontWeightManger.bold,
+      ),
+      elevation: 0,
     ),
 
     textTheme: TextTheme(

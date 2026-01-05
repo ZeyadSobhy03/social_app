@@ -22,5 +22,10 @@ class AuthRepositoriesIm implements AuthRepositories {
     return await authDataSource.getCurrentUser();
   }
 
+  @override
+  Future<void> logout() async{
+   return await authDataSource.logout();
+  }
+
 
 }

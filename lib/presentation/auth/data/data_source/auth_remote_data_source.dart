@@ -5,4 +5,6 @@ abstract class AuthDataSource {
   Future<AppUsers>register(String name,String email,String password);
 
   Future<AppUsers>getCurrentUser();
+  Future<void>logout();
+
 }

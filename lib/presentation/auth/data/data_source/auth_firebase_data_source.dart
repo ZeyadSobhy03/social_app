@@ -24,15 +24,11 @@ class AuthFirebaseDataSource implements AuthDataSource {
     // Update the display name
     await user!.updateDisplayName(name);
 
-    return AppUsers(
-      id: user.uid,
-      name: name,
-      email: user.email!,
-    );
+    return AppUsers(id: user.uid, name: name, email: user.email!);
   }
 
   @override
-  Future<AppUsers> getCurrentUser() async{
+  Future<AppUsers> getCurrentUser() async {
     final user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       return AppUsers(
@@ -43,6 +39,11 @@ class AuthFirebaseDataSource implements AuthDataSource {
     } else {
       throw Exception('No user is currently signed in.');
     }
+  }
+
+  @override
+  Future<void> logout() async {
+    await FirebaseAuth.instance.signOut();
   }
 
   // Implementation details would go here

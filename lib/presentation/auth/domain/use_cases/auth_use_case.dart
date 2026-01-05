@@ -17,4 +17,7 @@ class AuthUseCase {
   Future<AppUsers> getCurrentUser() async {
     return await authRepositories.getCurrentUser();
   }
+  Future<void> logout() async {
+    return await authRepositories.logout();
+  }
 }
