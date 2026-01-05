@@ -35,7 +35,7 @@ class ThemeManger{
       ),
       headlineSmall: TextStyle(
         color: ColorManger.black21,
-        fontSize: 16.sp,
+        fontSize: 16,
         fontWeight: FontWeight.w600,
         decoration: TextDecoration.underline,
         decorationThickness: 2,
@@ -125,12 +125,12 @@ class ThemeManger{
       ),
       titleSmall: TextStyle(
         color: ColorManger.white,
-        fontSize: 16.sp,
+        fontSize: 16,
         fontWeight: FontWeight.w400,
       ),
       headlineSmall: TextStyle(
         color: ColorManger.white,
-        fontSize: 16.sp,
+        fontSize: 16,
         fontWeight: FontWeight.w600,
         decoration: TextDecoration.underline,
         decorationThickness: 2,
