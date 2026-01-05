@@ -46,6 +46,7 @@ class ThemeManger{
 
     ),
     inputDecorationTheme: InputDecorationTheme(
+      errorMaxLines: 2,
 
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12.r),
@@ -138,6 +139,7 @@ class ThemeManger{
       )
     ),
     inputDecorationTheme: InputDecorationTheme(
+      errorMaxLines: 2,
 
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12.r),

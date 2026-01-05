@@ -19,7 +19,6 @@ class CustomTextFormField extends StatelessWidget {
     return TextFormField(
 
 
-
       style: Theme.of(context).textTheme.titleSmall,
       validator: validator,
       controller: controller,
