@@ -6,5 +6,6 @@ abstract class AuthDataSource {
 
   Future<AppUsers>getCurrentUser();
   Future<void>logout();
+  Future<AppUsers>saveUserToFireStore(AppUsers appUsers);
 
 }

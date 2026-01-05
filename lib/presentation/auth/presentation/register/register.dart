@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -52,6 +54,7 @@ class _RegisterState extends State<Register> {
       body: BlocListener<AuthCubit,AuthState>(
         listener: (context, state) {
           if (state is AuthFailure) {
+            log(state.error);
             Fluttertoast.showToast(
               msg: "Registration Failed: ${state.error}",
               toastLength: Toast.LENGTH_LONG,

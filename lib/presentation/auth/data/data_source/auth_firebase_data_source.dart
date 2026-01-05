@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:social_app/presentation/auth/data/data_source/auth_remote_data_source.dart';
 import 'package:social_app/presentation/auth/domain/entities/app_users.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -24,7 +25,9 @@ class AuthFirebaseDataSource implements AuthDataSource {
     // Update the display name
     await user!.updateDisplayName(name);
 
-    return AppUsers(id: user.uid, name: name, email: user.email!);
+    return saveUserToFireStore(
+      AppUsers(id: user.uid, name: name, email: email),
+    );
   }
 
   @override
@@ -44,6 +47,17 @@ class AuthFirebaseDataSource implements AuthDataSource {
   @override
   Future<void> logout() async {
     await FirebaseAuth.instance.signOut();
+  }
+
+  @override
+  Future<AppUsers> saveUserToFireStore(AppUsers appUsers) async {
+    final db = FirebaseFirestore.instance;
+   await db.collection('users').doc(appUsers.id).set({
+      'name': appUsers.name,
+      'email': appUsers.email,
+      'id': appUsers.id,
+    });
+    return appUsers;
   }
 
   // Implementation details would go here
