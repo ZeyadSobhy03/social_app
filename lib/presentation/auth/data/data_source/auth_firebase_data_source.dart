@@ -31,5 +31,19 @@ class AuthFirebaseDataSource implements AuthDataSource {
     );
   }
 
+  @override
+  Future<AppUsers> getCurrentUser() async{
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      return AppUsers(
+        id: user.uid,
+        name: user.displayName ?? '',
+        email: user.email!,
+      );
+    } else {
+      throw Exception('No user is currently signed in.');
+    }
+  }
+
   // Implementation details would go here
 }

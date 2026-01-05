@@ -17,5 +17,10 @@ class AuthRepositoriesIm implements AuthRepositories {
     return await authDataSource.register(name, email, password);
   }
 
+  @override
+  Future<AppUsers> getCurrentUser()async {
+    return await authDataSource.getCurrentUser();
+  }
+
 
 }

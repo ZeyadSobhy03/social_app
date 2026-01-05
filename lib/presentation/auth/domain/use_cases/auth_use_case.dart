@@ -14,4 +14,7 @@ class AuthUseCase {
   Future<AppUsers> register(String name, String email, String password) async {
     return await authRepositories.register(name, email, password);
   }
+  Future<AppUsers> getCurrentUser() async {
+    return await authRepositories.getCurrentUser();
+  }
 }
