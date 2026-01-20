@@ -7,6 +7,12 @@ import 'package:social_app/core/resources/font_weight_manger.dart';
 class ThemeManger {
   static ThemeData lightTheme = ThemeData(
     scaffoldBackgroundColor: ColorManger.lightGrey,
+    primaryColor: ColorManger.black12,
+    colorScheme: ColorScheme.fromSwatch().copyWith(
+      primaryContainer: ColorManger.white,
+    ),
+
+
 
     appBarTheme: AppBarTheme(
       centerTitle: true,
@@ -90,6 +96,10 @@ class ThemeManger {
   );
   static ThemeData darkTheme = ThemeData(
     scaffoldBackgroundColor: ColorManger.black12,
+    colorScheme: ColorScheme.fromSwatch().copyWith(
+      primaryContainer: ColorManger.black21,
+    ),
+    primaryColor:  ColorManger.black12,
     iconButtonTheme: IconButtonThemeData(
       style: IconButton.styleFrom(foregroundColor: ColorManger.grey9E),
     ),

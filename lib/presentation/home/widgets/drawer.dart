@@ -30,7 +30,9 @@ class MyDrawer extends StatelessWidget {
             CustomListTile(
               title: 'P R O F I L E',
               icon: Icons.person,
-              onTap: () {},
+              onTap: () {
+                Navigator.pushNamed(context, RouteManger.profile);
+              },
             ),
             CustomListTile(
               title: 'S E  A R C H',
