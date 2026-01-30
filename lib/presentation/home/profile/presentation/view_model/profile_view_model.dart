@@ -1,5 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:social_app/presentation/home/profile/data/data_source/local/hive_profile_data_source.dart';
 import 'package:social_app/presentation/home/profile/domain/entities/profile_user.dart';
+import 'package:social_app/presentation/home/profile/domain/entities/profile_user_adapter.dart';
 
 import '../../domain/use_cases/profile_use_case.dart';
 
@@ -23,6 +25,16 @@ class ProfileCubit extends Cubit<ProfileState> {
     try {
       await profileUseCase.updateUserProfile(userId, profileData);
       final updatedProfileUser = await profileUseCase.fetchUserProfile(userId);
+      HiveProfileDataSource().cacheUserProfile(
+        userId,
+        ProfileUserAdapter(
+          id: userId,
+          name: profileData.name,
+          email: profileData.email,
+          bio: profileData.bio,
+          profileImage: profileData.profileImage,
+        ),
+      );
       emit(ProfileSuccess(updatedProfileUser));
     } catch (e) {
       emit(ProfileFailure(e.toString()));

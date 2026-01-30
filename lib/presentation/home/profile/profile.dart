@@ -1,10 +1,16 @@
+import 'dart:developer';
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:social_app/core/routes/routes_manger.dart';
 import 'package:social_app/core/widgets/custom_text.dart';
 import 'package:social_app/presentation/auth/presentation/view_model/auth_view_model.dart';
+import 'package:social_app/presentation/home/profile/data/data_source/local/hive_profile_data_source.dart';
+import 'package:social_app/presentation/home/profile/domain/entities/profile_user_adapter.dart';
 import 'package:social_app/presentation/home/profile/presentation/view_model/profile_view_model.dart';
 import 'package:social_app/presentation/home/profile/presentation/widgets/bio_box.dart';
 
@@ -18,6 +24,8 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   late AuthCubit authCubit;
   late ProfileCubit profileCubit;
+  String imageUrl = 'assets/images/image1.jpg';
+  ProfileUserAdapter? cachedProfileUser;
 
   final String userId = FirebaseAuth.instance.currentUser?.uid ?? '';
 
@@ -27,11 +35,34 @@ class _ProfileState extends State<Profile> {
 
     authCubit = context.read<AuthCubit>();
     profileCubit = context.read<ProfileCubit>();
+    getCachedProfile();
 
     if (userId.isNotEmpty) {
       profileCubit.fetchUserProfile(userId);
     }
   }
+
+  Future<void> getCachedProfile() async {
+    final cached = await HiveProfileDataSource().getCachedUserProfile(userId);
+
+    if (!mounted) return;
+
+    setState(() {
+      cachedProfileUser = cached;
+      if (cachedProfileUser != null && cachedProfileUser!.profileImage.isNotEmpty) {
+        imageUrl = cachedProfileUser!.profileImage;
+      }
+    });
+
+    if (cachedProfileUser != null) {
+      log('cached user id: ${cachedProfileUser!.id}');
+      log('cached user name: ${cachedProfileUser!.name}');
+      log('cached user bio: ${cachedProfileUser!.bio}');
+      log('cached user email: ${cachedProfileUser!.email}');
+      log('cached user image: ${cachedProfileUser!.profileImage}');
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -82,12 +113,32 @@ class _ProfileState extends State<Profile> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Center(child: CustomText(text: ' ${user.email}')),
-                  Container(
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(width: 2),
+
+                  GestureDetector(
+                    onTap: () async {
+                      await loadImage();
+                    },
+                    child: Center(
+                      child: imageUrl.contains('data/user/')
+                          ? ClipRRect(
+                              borderRadius: BorderRadius.circular(50),
+                              child: Image.file(
+                                File(imageUrl),
+                                width: 100,
+                                height: 100,
+                                fit: BoxFit.cover,
+                              ),
+                            )
+                          : ClipRRect(
+                              borderRadius: BorderRadius.circular(50),
+                              child: Image.asset(
+                                imageUrl,
+                                width: 100,
+                                height: 100,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
                     ),
-                    child: Center(child: Icon(Icons.account_circle, size: 100)),
                   ),
                   SizedBox(height: 20),
                   Padding(
@@ -109,4 +160,43 @@ class _ProfileState extends State<Profile> {
       ),
     );
   }
+
+  loadImage() async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+
+    if (image != null) {
+      final newProfile = ProfileUserAdapter(
+        id: userId,
+        name: cachedProfileUser?.name ?? '',
+        email: cachedProfileUser?.email ?? '',
+        bio: cachedProfileUser?.bio ?? '',
+        profileImage: image.path,
+      );
+
+
+      await HiveProfileDataSource().updateUserProfile(userId, newProfile);
+
+      if (!mounted) return;
+
+
+      setState(() {
+        cachedProfileUser = newProfile;
+        imageUrl = newProfile.profileImage;
+      });
+    }
+  }
+
 }
+
+/*
+
+
+ Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(width: 2),
+                    ),
+                    child: Center(child: Icon(Icons.account_circle, size: 100)),
+                  ),
+ */

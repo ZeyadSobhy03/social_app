@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:social_app/presentation/home/profile/data/data_source/remote_profile_data_source.dart';
+import 'package:social_app/presentation/home/profile/data/data_source/remote/remote_profile_data_source.dart';
 import 'package:social_app/presentation/home/profile/domain/entities/profile_user.dart';
 
 class FireBaseProfileDataSource implements RemoteProfileDataSource {
